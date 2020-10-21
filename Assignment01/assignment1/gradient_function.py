@@ -16,7 +16,7 @@ def gradient_function(theta, X, y):
 
     """
 
-    grad = None
+    
     #######################################################################
     # TODO:                                                               #
     # Compute the gradient for a particular choice of theta.              #
@@ -25,7 +25,9 @@ def gradient_function(theta, X, y):
     #                                                                     #
     #######################################################################
     
-    pass
+    w_sum = np.dot(X, theta)
+    h = sigmoid(w_sum)
+    grad = np.dot(X.T, h - y)    
 
     #######################################################################
     #                         END OF YOUR CODE                            #

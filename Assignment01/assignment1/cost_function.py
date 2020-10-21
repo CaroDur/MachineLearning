@@ -16,15 +16,18 @@ def cost_function(theta, X, y):
 
     """
 
-    l = None
+    
     #######################################################################
     # TODO:                                                               #
     # Compute and return the log-likelihood l of a particular choice of   #
     # theta.                                                              #
     #                                                                     #
     #######################################################################
-
-    pass
+    
+    # Weighted sum of inputs
+    w_sum = np.dot(X, theta)
+    h = sigmoid(w_sum)
+    l =  np.sum(y * np.log(h) + (1 - y) * np.log(1 - h))
 
     #######################################################################
     #                         END OF YOUR CODE                            #

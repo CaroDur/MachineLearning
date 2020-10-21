@@ -22,6 +22,7 @@ def logistic_Newton(X, y, num_iter=10):
 
     theta = np.zeros(X.shape[1])
     losses = []
+
     for i in range(num_iter):
         start = time.time()
         #######################################################################
@@ -33,7 +34,9 @@ def logistic_Newton(X, y, num_iter=10):
         # Hint: To solve for A^(-1)b consider using np.linalg.solve for speed #
         #######################################################################
 
-        pass
+        hessian = 0
+        hess_inv = np.linalg.inv(hessian)
+        theta -= np.dot(hess_inv, gradient_function(theta, X, y))
 
         #######################################################################
         #                         END OF YOUR CODE                            #
