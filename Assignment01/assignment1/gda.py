@@ -32,8 +32,26 @@ def gda(X, y):
     #                                                                     #
     #######################################################################
 
-    pass
+    phi = np.sum(y)/len(y)
+    mu_0 = np.dot((1-y),X)/np.sum(1-y)
+    mu_1 = np.dot(y, X)/np.sum(y)
 
+    sigma = np.zeros((X.shape[1], X.shape[1]))
+
+    """     for i in range(len(y)):
+        if y[i] == 0:
+            sigma += np.dot((X[i,:] - mu_0), (X[i,:] - mu_0).T)
+        else: 
+            sigma += np.dot((X[i,:] - mu_1), (X[i,:] - mu_1).T) """
+
+    sigma = (X-mu_0.T)*(X-mu_1.T).T
+    
+    sigma = sigma / len(X)
+
+    # ifMu_0 = (1-y) * mu_0
+    # ifMu_1 = y * mu_1
+    # w = X - ifMu_0 + ifMu_1
+    # sigma = np.sum(w*w.T)/len(y)
 
     #######################################################################
     #                         END OF YOUR CODE                            #

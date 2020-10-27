@@ -1,6 +1,5 @@
 from .cost_function import cost_function
 from .gradient_function import gradient_function
-from .sigmoid import sigmoid
 import numpy as np
 import time
 
@@ -34,8 +33,8 @@ def logistic_SGD(X, y, num_iter=100000, alpha=0.01):
         #                                                                     #
         #######################################################################
 
-        h = sigmoid(X[i])
-        theta += alpha * (y[i] - h) * X[i]
+        r = np.random.randint(0, X.shape[0])
+        theta -= alpha * gradient_function(theta, X[r,:], y[r])
 
         #######################################################################
         #                         END OF YOUR CODE                            #
