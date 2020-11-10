@@ -17,12 +17,18 @@ def svm_loss(w, b, X, y, C):
 
     """
 
-    l = 0
+    
     #######################################################################
     # TODO:                                                               #
     # Compute and return the value of the unconstrained SVM objective     #
     #                                                                     #
     #######################################################################
+    f_x = X.dot(w) + b
+    param = 1/C
+    regul_term = param/2 * np.sum(w*w)
+    distance = 1 - (y*f_x)
+    l = np.mean(np.maximum(0, distance))
+    l += regul_term
 
     #######################################################################
     #                         END OF YOUR CODE                            #
