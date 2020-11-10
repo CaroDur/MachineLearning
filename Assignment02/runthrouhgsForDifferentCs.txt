@@ -1,0 +1,29 @@
+C=50
+Total exection time: 48.33147573471069s
+Accuracy train: 0.9106036594150698
+Accuracy test: 0.9063865546218487
+
+C=40
+Total exection time: 49.15979242324829s
+Accuracy train: 0.9224895548191904
+Accuracy test: 0.9139495798319328
+
+C=30
+Total exection time: 45.91239404678345s
+Accuracy train: 0.9249387696297363
+Accuracy test: 0.9100840336134454
+
+C=20
+Total exection time: 47.48010206222534s
+Accuracy train: 0.6651058925226913
+Accuracy test: 0.662016806722689
+
+C=10
+Total exection time: 48.396361351013184s
+Accuracy train: 0.8534793257455698
+Accuracy test: 0.8576470588235294
+
+C=5
+Total exection time: 52.911622047424316s
+Accuracy train: 0.8225039619651348
+Accuracy test: 0.8132773109243697
