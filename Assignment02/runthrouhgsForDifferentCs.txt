@@ -42,3 +42,17 @@ C=3
 Total exection time: 78.82259106636047s
 Accuracy train: 0.9189598040628152
 Accuracy test: 0.9124369747899159
+
+C=0.1
+Total exection time: 41.65290141105652s
+Accuracy train: 0.930341449358882
+Accuracy test: 0.9139495798319328
+
+C=0.01
+Total exection time: 88.69192957878113s
+Accuracy train: 0.9237861979541853
+Accuracy test: 0.913109243697479
+Second run with same C:
+Total exection time: 33.74439263343811s
+Accuracy train: 0.9255870911972338
+Accuracy test: 0.915126050420168
