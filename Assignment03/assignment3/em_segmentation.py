@@ -29,7 +29,19 @@ def em_segmentation(img, k, max_iter=20):
     #      generate the label-image                                       #
     #######################################################################
     
-
+    # prepare all data
+    ny, nx, nz = img.shape
+    x = np.linspace(0, nx, nx)
+    y = np.linspace(0, ny, ny)
+    xv, yv = np.meshgrid(x, y)
+    xv = np.concatenate(xv)
+    yv = np.concatenate(yv)
+    img_conc = np.concatenate(img, axis=0)
+    # stack xv and yv to img to get RGBXY shape
+    img_large = np.stack([img_conc[:,0],img_conc[:,1],img_conc[:,2], xv, yv], axis=-1)
+    # apply Gaussian Mixture to RGBXY image and then reshape to return wanted image
+    img_gaussian = GaussianMixture(n_components=k, max_iter=max_iter).fit_predict(img_large)
+    label_img = np.reshape(img_gaussian, img.shape[:2])
 
     #######################################################################
     #                         END OF YOUR CODE                            #

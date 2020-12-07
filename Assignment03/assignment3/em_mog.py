@@ -32,6 +32,8 @@ def em_mog(X, k, max_iter=20):
     # Initialize the means of the gaussians. You can use K-means!         #
     #######################################################################
 
+    initKmeans = KMeans(n_clusters=k, max_iter=max_iter).fit(X)
+    mu = initKmeans.cluster_centers_
 
     #######################################################################
     #                         END OF YOUR CODE                            #
@@ -76,6 +78,13 @@ def log_likelihood(X, mu, sigma, phi):
     # This is used to check for convergnence of the algorithm.            #
     #######################################################################
 
+    ll = np.zeros((X.shape[0], 1))
+    k = mu.shape[0]
+
+    for i in range(k):
+        ll += multivariate_normal(mu[i, :], sigma[i]).pdf(X)[:, None]*phi[i]
+
+    ll = sum(np.log(ll))
 
     #######################################################################
     #                         END OF YOUR CODE                            #
@@ -101,7 +110,10 @@ def e_step(X, mu, sigma, phi):
     # of a gaussian with the current parameters.                          #
     #######################################################################
 
-
+    w = np.zeros((X.shape[0], mu.shape[0]))
+    for i in range(mu.shape[0]):
+        w[:, i] = multivariate_normal(mu[i, :], sigma[i]).pdf(X)*phi[i]
+      
     #######################################################################
     #                         END OF YOUR CODE                            #
     #######################################################################
@@ -119,8 +131,15 @@ def m_step(w, X, mu, sigma, phi, k):
     # Update all the model parameters as per the M-step of the EM         #
     # algorithm.
     #######################################################################
+    phi = sum(w, 1) / w.shape[0]
 
-
+    for i in range(k):
+        mu[i, :] = np.sum(X * w[:, i][:, None], 0) / sum(w[:, i])
+        M = np.zeros((X.shape[1], X.shape[1]))
+        for j in range(X.shape[0]):
+            M += np.dot((X[j, :] - mu[i, :])[:, None], (X[j, :] - mu[i, :])[:, None].T) * w[j, i]
+        sigma[i] = M / sum(w[:, i])
+    
     #######################################################################
     #                         END OF YOUR CODE                            #
     #######################################################################

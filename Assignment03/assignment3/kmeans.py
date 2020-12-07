@@ -29,19 +29,24 @@ def kmeans(X, k, max_iter=100):
     #######################################################################
 
     # 1st step: Chose k random rows of X as initial cluster centers
-
+    centersInd = np.random.randint(0, high=X.shape[0], size=k)
+    centers = X[centersInd, :]
 
     for i in range(max_iter):
         prev_assign = assign
 
         # 2nd step: Update the cluster assignment
-
+        dist_matrx = np.linalg.norm(X[:, np.newaxis, :] - centers[np.newaxis, :, :], axis=-1)
+        assign = np.argmin(dist_matrx, axis=1)
 
         # 3rd step: Check for convergence
-
+        if np.all(prev_assign == assign):
+        	break
 
         # 4th step: Update the cluster centers based on the new assignment
-
+        for j in range(k):
+        	mask = np.where(assign == j, True, False)
+        	centers[j, :] = np.mean(X[mask], 0)
 
     #######################################################################
     #                         END OF YOUR CODE                            #
