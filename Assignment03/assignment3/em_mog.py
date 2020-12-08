@@ -82,7 +82,7 @@ def log_likelihood(X, mu, sigma, phi):
     k = mu.shape[0]
 
     for i in range(k):
-        ll += multivariate_normal(mu[i, :], sigma[i]).pdf(X)[:, None]*phi[i]
+        ll += multivariate_normal(mu[i, :], sigma[i]).pdf(X)[:, np.newaxis]*phi[i]
 
     ll = sum(np.log(ll))
 
@@ -133,11 +133,11 @@ def m_step(w, X, mu, sigma, phi, k):
     #######################################################################
     phi = sum(w, 1) / w.shape[0]
 
+    mu = np.dot(w.T,X) / np.sum(w.T, axis=1)[:, np.newaxis]
     for i in range(k):
-        mu[i, :] = np.sum(X * w[:, i][:, None], 0) / sum(w[:, i])
         M = np.zeros((X.shape[1], X.shape[1]))
         for j in range(X.shape[0]):
-            M += np.dot((X[j, :] - mu[i, :])[:, None], (X[j, :] - mu[i, :])[:, None].T) * w[j, i]
+            M += np.dot((X[j, :] - mu[i, :])[:, np.newaxis], (X[j, :] - mu[i, :])[:, np.newaxis].T) * w[j, i]
         sigma[i] = M / sum(w[:, i])
     
     #######################################################################
